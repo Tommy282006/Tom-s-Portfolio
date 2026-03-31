@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Tom Clarence C. Endaya Portfolio</title>  <style>  
+/* ================= RESET ================= */  
+*{  
+  margin:0;  
+  padding:0;  
+  box-sizing:border-box;  
+  font-family:'Segoe UI', sans-serif;  
+  scroll-behavior:smooth;  
+}  
+  
+/* ================= LIGHT/DARK TOGGLE ================= */  
+#mode-toggle { display:none; }  
+  
+label[for="mode-toggle"]{  
+  position:fixed;  
+  top:20px;  
+  right:20px;  
+  background: linear-gradient(90deg,#00f2fe,#4facfe);  
+  padding:10px 25px;  
+  border-radius:25px;  
+  cursor:pointer;  
+  z-index:1000;  
+  color:black;  
+  font-weight:bold;  
+  transition:0.3s;  
+}  
+label[for="mode-toggle"]:hover{  
+  box-shadow:0 0 20px #00f2fe;  
+  transform:scale(1.05);  
+}  
+  
+.portfolio-wrapper{  
+  transition:0.5s;  
+  color:white;  
+  background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1c92d2);  
+  background-size:400% 400%;  
+  animation:bgmove 12s infinite alternate;  
+}  
+  
+/* Light Mode Styles */  
+#mode-toggle:checked + label + .portfolio-wrapper{  
+  background:#f0f0f0;  
+  color:#222;  
+}  
+#mode-toggle:checked + label + .portfolio-wrapper .glass{  
+  background: rgba(255, 255, 255, 0.3);  
+  color:#222;  
+}  
+#mode-toggle:checked + label + .portfolio-wrapper nav ul li a{  
+  color:#222;  
+}  
+#mode-toggle:checked + label + .portfolio-wrapper .section h2{  
+  border-bottom-color: #222;  
+}  
+#mode-toggle:checked + label + .portfolio-wrapper .modal-content{  
+  color:#222;  
+  background: rgba(255, 255, 255, 0.8);  
+}  
+#mode-toggle:checked + label + .portfolio-wrapper .contact-btn,  
+#mode-toggle:checked + label + .portfolio-wrapper .cv-btn,  
+#mode-toggle:checked + label + .portfolio-wrapper label[for="mode-toggle"]{  
+  color:#222;  
+}  
+#mode-toggle:checked + label + .portfolio-wrapper .modal-content pre{  
+  background: rgba(0, 0, 0, 0.1);  
+  color:#222;  
+}  
+  
+/* ================= ANIMATED BACKGROUND ================= */  
+@keyframes bgmove{ 0%{background-position:0% 50%;} 100%{background-position:100% 50%;} }  
+  
+/* ================= LOADER ================= */  
+.loader{  
+  position:fixed;  
+  top:0; left:0;  
+  width:100%; height:100%;  
+  background:#0f2027;  
+  display:flex;  
+  flex-direction:column;  
+  align-items:center;  
+  justify-content:center;  
+  z-index:999;  
+  animation:fadeout 3s forwards;  
+}  
+.spinner{  
+  width:50px; height:50px;  
+  border:5px solid #4facfe;  
+  border-top:5px solid transparent;  
+  border-radius:50%;  
+  animation:spin 1s linear infinite;  
+  margin-bottom:10px;  
+}  
+@keyframes spin{ to{transform:rotate(360deg);} }  
+@keyframes fadeout{ 80%{opacity:1;} 100%{opacity:0;visibility:hidden;} }  
+  
+/* ================= HEADER ================= */  
+header{  
+  text-align:center;  
+  padding:60px 20px;  
+}  
+header h1{  
+  font-size:42px;  
+  background:linear-gradient(90deg,#00f2fe,#4facfe);  
+  -webkit-background-clip:text;  
+  color:transparent;  
+}  
+.profile-img{  
+  width:150px; height:150px;  
+  border-radius:50%;  
+  object-fit:cover;  
+  border:4px solid rgba(255,255,255,0.6);  
+  margin-bottom:15px;  
+  transition:0.4s;  
+}  
+.profile-img:hover{  
+  transform:scale(1.1);  
+  box-shadow:0 0 25px rgba(255,255,255,0.8);  
+}  
+.typing{  
+  width:22ch;  
+  white-space:nowrap;  
+  overflow:hidden;  
+  border-right:3px solid white;  
+  margin:auto;  
+  animation:typing 4s steps(22), blink .8s infinite alternate;  
+}  
+@keyframes typing{ from{width:0} }  
+@keyframes blink{ 50%{border-color:transparent} }  
+  
+/* ================= NAVIGATION ================= */  
+nav{  
+  position:sticky;  
+  top:0;  
+  background:rgba(255,255,255,0.08);  
+  backdrop-filter:blur(10px);  
+}  
+nav ul{  
+  display:flex;  
+  justify-content:center;  
+  list-style:none;  
+}  
+nav ul li a{  
+  color:white;  
+  padding:15px 25px;  
+  display:block;  
+  text-decoration:none;  
+  transition:0.3s;  
+}  
+nav ul li a:hover{  
+  background:linear-gradient(90deg,#00f2fe,#4facfe);  
+  border-radius:10px;  
+}  
+  
+/* ================= LAYOUT ================= */  
+.container{  
+  display:flex;  
+  flex-wrap:wrap;  
+  gap:20px;  
+  padding:25px;  
+}  
+.glass{  
+  background:rgba(255,255,255,0.1);  
+  border-radius:15px;  
+  padding:20px;  
+  backdrop-filter:blur(10px);  
+  transition:0.4s;  
+}  
+.glass:hover{  
+  transform:translateY(-5px);  
+  box-shadow:0 10px 20px rgba(0,0,0,0.4);  
+}  
+.sidebar{ flex:1; min-width:250px; }  
+.content{ flex:2; min-width:300px; }  
+  
+/* ================= SECTIONS ================= */  
+.section{ margin-bottom:25px; }  
+.section h2{ margin-bottom:10px; border-bottom:2px solid white; display:inline-block; }  
+  
+/* ================= SKILLS ================= */  
+.skill{ margin-bottom:10px; }  
+.skill-bar{  
+  height:8px;  
+  background:rgba(255,255,255,0.2);  
+  border-radius:10px;  
+  overflow:hidden;  
+}  
+.skill-bar span{  
+  display:block;  
+  height:100%;  
+  background:linear-gradient(90deg,#00f2fe,#4facfe);  
+  animation:load 2s;  
+}  
+@keyframes load{ from{width:0} }  
+  
+/* ================= PROJECTS ================= */  
+.projects{  
+  display:flex;  
+  flex-wrap:wrap;  
+  gap:15px;  
+}  
+.card{  
+  flex:1 1 30%;  
+  border-radius:50%;  
+  overflow:hidden;  
+  background:rgba(255,255,255,0.08);  
+  transition:0.4s;  
+  display:flex;  
+  justify-content:center;  
+  align-items:center;  
+}  
+.card img{  
+  width:150px; height:150px;  
+  border-radius:50%;  
+  object-fit:cover;  
+}  
+.card:hover{ transform:scale(1.05); }  
+  
+/* ================= MODALS ================= */  
+.modal{  
+  position:fixed;  
+  top:0; left:0;  
+  width:100%; height:100%;  
+  background:rgba(0,0,0,0.9);  
+  display:flex; align-items:center; justify-content:center;  
+  opacity:0; pointer-events:none;  
+  transition:0.4s;  
+  overflow:auto; padding:20px;  
+}  
+.modal:target{ opacity:1; pointer-events:auto; }  
+.modal-content{  
+  background:rgba(255,255,255,0.05);  
+  padding:20px;  
+  border-radius:15px;  
+  max-width:800px; width:100%;  
+  color:white; position:relative;  
+}  
+.modal-content img{  
+  width:100%; margin-bottom:15px; border-radius:10px;  
+}  
+.modal-content pre{  
+  background:rgba(0,0,0,0.6); padding:10px; overflow-x:auto; border-radius:10px;  
+}  
+.modal-content .close{  
+  position:absolute; top:10px; right:20px;  
+  text-decoration:none; font-size:30px; font-weight:bold; color:#00f2fe;  
+}  
+  
+/* ================= TIMELINE ================= */  
+.timeline{ border-left:3px solid #4facfe; padding-left:20px; }  
+.timeline-item{ margin-bottom:20px; position:relative; }  
+.timeline-item::before{  
+  content:''; position:absolute; left:-10px; top:5px;  
+  width:15px; height:15px; background:#00f2fe; border-radius:50%;  
+}  
+  
+/* ================= BUTTONS ================= */  
+.contact-btn,.cv-btn{  
+  display:inline-block;  
+  margin-top:10px;  
+  padding:10px 20px;  
+  background:linear-gradient(90deg,#00f2fe,#4facfe);  
+  border-radius:25px;  
+  text-decoration:none;  
+  color:black;  
+  font-weight:bold;  
+  transition:0.3s;  
+}  
+.contact-btn:hover,.cv-btn:hover{  
+  box-shadow:0 0 20px #00f2fe;  
+  transform:scale(1.05);  
+}  
+  
+/* ================= FOOTER ================= */  
+footer{  
+  text-align:center;  
+  padding:15px;  
+  margin-top:20px;  
+  background:rgba(0,0,0,0.3);  
+}  
+  
+/* ================= MEDIA QUERIES ================= */  
+@media(max-width:600px){  
+  .container{ flex-direction:column; }  
+  nav ul{ flex-direction:column; align-items:center; }  
+  .card{ flex:1 1 100%; }  
+  header h1{ font-size:28px; }  
+}  
+@media(min-width:601px) and (max-width:1024px){  
+  .container{ flex-direction:column; }  
+  .card{ flex:1 1 45%; }  
+}  
+@media(min-width:1025px){  
+  .container{ flex-direction:row; }  
+  .card{ flex:1 1 30%; }  
+}  
+</style>  </head>  
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<body>  <input type="checkbox" id="mode-toggle">  
+<label for="mode-toggle">Toggle Light/Dark</label>  <div class="portfolio-wrapper">  <div class="loader">  
+  <div class="spinner"></div>  
+  <p>Loading Portfolio...</p>  
+</div>  <header id="home">  
+  <img src="endaya.jpeg" class="profile-img" alt="Profile Picture">  
+  <h1>Tom Clarence C. Endaya</h1>  
+  <p class="typing">Nonchalant IT Student</p>  
+</header>  <nav>  
+  <ul>  
+    <li><a href="#home">Home</a></li>  
+    <li><a href="#about">About</a></li>  
+    <li><a href="#projects">Projects</a></li>  
+    <li><a href="#contact">Contact</a></li>  
+  </ul>  
+</nav>  <div class="container">    <!-- SIDEBAR -->    <div class="sidebar glass" id="about">  
+    <div class="section">  
+      <h2>About Me</h2>  
+      <p>I am a first-year IT student passionate about learning programming and web development. I enjoy building projects and improving my skills.</p>  
+      <a href="#" class="cv-btn">Download CV</a>  
+    </div>  
+    <div class="section">  
+      <h2>Skills</h2>  
+      <div class="skill">HTML<div class="skill-bar"><span style="width:90%"></span></div></div>  
+      <div class="skill">CSS<div class="skill-bar"><span style="width:80%"></span></div></div>  
+    </div>  
+  </div>    <!-- CONTENT -->    <div class="content glass">  <!-- PROJECTS -->  
+<div class="section" id="projects">  
+  <h2>Projects</h2>  
+  <div class="projects">  
+    <a href="#project1" class="card"><img src="MLB1.png" alt="Project 1 Screenshot"></a>  
+    <a href="#project2" class="card"><img src="MLB2.png" alt="Project 2"></a>  
+    <a href="#project3" class="card"><img src="MLB3.png" alt="Project 3"></a>  
+    <a href="#project4" class="card"><img src="MLB4.png" alt="Project 4"></a>  
+    <a href="#project5" class="card"><img src="MLB5.png" alt="Project 5"></a>  
+    <a href="#project6" class="card"><img src="MLB6.png" alt="Project 6"></a> 
+    <a href="#project7" class="card"><img src="F1.png" alt="Project 7"></a> 
+  </div>  
+</div>
+
+  <!-- EDUCATION -->  <div class="section" id="education">  
+  <h2>Education</h2>  
+  <div class="timeline">  <div class="timeline-item">  
+  <h3><span>🏫</span> Elementary</h3>  
+  <p>Ayala Elementary School </p>  
+  <span>2013-2019 - </span>  
+</div>  
+
+<div class="timeline-item">  
+  <h3><span>📘</span> Junior High School</h3>  
+  <p>Ayala High School </p>  
+  <span>2019 - 2023</span>  
+</div>  
+
+<div class="timeline-item">  
+  <h3><span>🎓</span> Senior High School</h3>  
+  <p>HUMSS Strand</p>  
+  <span>2024 - 2025</span>  
+</div>  
+
+<div class="timeline-item">  
+  <h3><span>💻</span> College</h3>  
+  <p>Bachelor of Science in Information Technology</p>  
+  <span>2026 - Present</span>  
+</div>
+
+  </div>  
+<!-- CONTACT -->
+<div class="section" id="contact">
+  <h2>Contact</h2>
+  
+  <p>
+    <i class="fas fa-envelope"></i>
+    Email: 
+    <a href="mailto:tomclarence727@gmail.com">tomclarence727@gmail.com</a>
+  </p>
+  
+  <p>
+    <i class="fas fa-phone"></i>
+    Mobile: 
+    <a href="tel:+639123456789">+63 966 756 3124</a>
+  </p>
+  
+  <p>
+    <i class="fab fa-facebook"></i>
+    Facebook: 
+    <a href="https://www.facebook.com/share/18Kd68zb99/" target="_blank">
+      Visit My Profile
+    </a>
+  </p>
+
+  <a class="contact-btn" href="#">
+    <i class="fas fa-paper-plane"></i> Send Message
+  </a>
+</div>
+
+  </div>  
+</div>  <footer>© 2026 Tom Clarence C. Endaya</footer>  <!-- ================= PROJECT MODALS WITH DESCRIPTION ================= -->  <div id="project1" class="modal">  
+  <div class="modal-content">  
+    <a href="#" class="close">&times;</a>  
+    <h2>Project 1</h2>  
+    <img src="una.jpg" alt="Project 1 Screenshot">  
+    <p>Yung Resume namin ay mas pinaganda sa part na toh nagkaroon sya ng background color at nag karoon sya ng function yung mg page name amazing diba?hahaha.</p>  
+    <pre>&lt; Resume ni Tom HTML/CSS‎ <a hr/pre>
+
+  </div>  
+</div>  <div id="project2" class="modal">  
+  <div class="modal-content">  
+    <a href="#" class="close">&times;</a>  
+    <h2>Project 2</h2>  
+    <img src="pangalawa.jpg" alt="Project 2 Screenshot">  
+    <p>Dito naman tinuruan kami kung paano gumawa ng listahan sa coding haha medyo tricky to pero kung pag tutuonan mo ng pansin madali lang toh wag kalang papalito.</p>  
+    <pre>&lt;Unordered lists HTML/CSS code here --&gt;</pre>  
+  </div>  
+</div>  <div id="project3" class="modal">  
+  <div class="modal-content">  
+    <a href="#" class="close">&times;</a>  
+    <h2>Project 3</h2>  
+    <img src="pangatlo.jpg" alt="Project 3 Screenshot">  
+    <p>Built a small blog page demonstrating CSS grid and flexbox layouts.</p>  
+    <pre>&lt;HTML FORMS HTML/CSS code here --&gt;</pre>  
+  </div>  
+</div>  <div id="project4" class="modal">  
+  <div class="modal-content">  
+    <a href="#" class="close">&times;</a>  
+    <h2>Project 4</h2>  
+    <img src="pangapat.jpg" alt="Project 4 Screenshot">  
+    <p>Designed a registration form with validation styling using CSS only.</p>  
+    <pre>&lt;IMAGE MAPS HTML/CSS code here --&gt;</pre>  
+  </div>  
+</div>  <div id="project5" class="modal">  
+  <div class="modal-content">  
+    <a href="#" class="close">&times;</a>  
+    <h2>Project 5</h2>  
+    <img src="panglima.jpg" alt="Project 5 Screenshot">  
+    <p>Created a gallery page with hover animations and modal popups.</p>  
+    <pre>&lt;Applying Css to Resume HTML/CSS code here --&gt;</pre>  
+  </div>  
+</div>  <div id="project6" class="modal">
+  <div class="modal-content">
+    <a href="#" class="close">&times;</a>
+    <h2>Project 6</h2>
+    <img src="panganim.webp" alt="Project 6 Screenshot">
+    <p>Developed a mini e-commerce product page with CSS card styling.</p>
+    <pre>&lt;HTML layout using divs and semantic elementsHTML/CSS code here HTML/CSS code here --&gt;</pre>
+  </div>
+</div>
+
+<div id="project7" class="modal">
+  <div class="modal-content">
+    <a href="#" class="close">&times;</a>
+    <h2>Project 7</h2>
+    <img src="pangpito.jpg" alt="Project 7 Screenshot">
+    <p>Developed a mini e-commerce product page with CSS card styling.</p>
+    <pre>&lt;Responsive layout using Flex HTML/CSS code here --&gt;</pre>
+  </div>
+</div>  </div> <!-- END WRAPPER -->  </body>  
+</html> 
