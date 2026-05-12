@@ -84,7 +84,7 @@ label[for="mode-toggle"]:hover{
   display:flex;  
   flex-direction:column;  
   align-items:center;  
-  justify-content:center;  
+  justify-content:center; 
   z-index:999;  
   animation:fadeout 3s forwards;  
 }  
@@ -199,28 +199,63 @@ nav ul li a:hover{
 @keyframes load{ from{width:0} }  
   
 /* ================= PROJECTS ================= */  
-.projects{  
-  display:flex;  
-  flex-wrap:wrap;  
-  gap:15px;  
-}  
-.card{  
-  flex:1 1 30%;  
-  border-radius:50%;  
-  overflow:hidden;  
-  background:rgba(255,255,255,0.08);  
-  transition:0.4s;  
-  display:flex;  
-  justify-content:center;  
-  align-items:center;  
-}  
-.card img{  
-  width:150px; height:150px;  
-  border-radius:50%;  
-  object-fit:cover;  
-}  
-.card:hover{ transform:scale(1.05); }  
-  
+/* UPDATED CARD */
+.card{
+  flex:1 1 30%;
+  border-radius:15px;
+  overflow:hidden;
+  position:relative;
+}
+
+/* image */
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+/* overlay */
+.project-overlay{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  color:white;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:15px;
+
+  transform:translateY(100%);
+  transition:0.4s;
+}
+
+/* show on click */
+.project-card:focus .project-overlay,
+.project-card:focus-within .project-overlay{
+  transform:translateY(0);
+}
+
+/* buttons */
+.buttons{
+  display:flex;
+  gap:10px;
+}
+
+.buttons a{
+  flex:1;
+  text-align:center;
+  padding:8px;
+  border-radius:20px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:bold;
+  color:black;
+  background:linear-gradient(90deg,#00f2fe,#4facfe);
+}
 /* ================= MODALS ================= */  
 .modal{  
   position:fixed;  
@@ -284,21 +319,74 @@ footer{
   background:rgba(0,0,0,0.3);  
 }  
   
-/* ================= MEDIA QUERIES ================= */  
-@media(max-width:600px){  
-  .container{ flex-direction:column; }  
-  nav ul{ flex-direction:column; align-items:center; }  
-  .card{ flex:1 1 100%; }  
-  header h1{ font-size:28px; }  
-}  
-@media(min-width:601px) and (max-width:1024px){  
-  .container{ flex-direction:column; }  
-  .card{ flex:1 1 45%; }  
-}  
-@media(min-width:1025px){  
-  .container{ flex-direction:row; }  
-  .card{ flex:1 1 30%; }  
-}  
+/* ================= MEDIA QUERIES ================= */
+
+/* Mobile Devices (up to 600px) */
+@media(max-width:600px){
+  .container{
+    flex-direction:column;
+    gap:15px;
+    padding:15px;
+  }
+  nav ul{
+    flex-direction:column;
+    align-items:center;
+  }
+  .card{
+    flex:1 1 100%;
+  }
+  header h1{
+    font-size:28px;
+  }
+  .typing{
+    width:18ch;
+  }
+}
+
+/* Tablets (601px - 1024px) */
+@media(min-width:601px) and (max-width:1024px){
+  .container{
+    flex-direction:column;
+    gap:20px;
+    padding:20px;
+  }
+  .card{
+    flex:1 1 45%;
+  }
+  header h1{
+    font-size:36px;
+  }
+  .typing{
+    width:20ch;
+  }
+  nav ul{
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+}
+
+/* Laptops / Desktops (1025px and above) */
+@media(min-width:1025px){
+  .container{
+    flex-direction:row;
+    gap:25px;
+    padding:25px;
+  }
+  .card{
+    flex:1 1 30%;
+  }
+  header h1{
+    font-size:42px;
+  }
+  .typing{
+    width:22ch;
+  }
+  nav ul{
+    flex-direction:row;
+    justify-content:center;
+  }
+}
 </style>  </head>  
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -332,15 +420,177 @@ footer{
   </div>    <!-- CONTENT -->    <div class="content glass">  <!-- PROJECTS -->  
 <div class="section" id="projects">  
   <h2>Projects</h2>  
-  <div class="projects">  
-    <a href="#project1" class="card"><img src="MLB1.png" alt="Project 1 Screenshot"></a>  
-    <a href="#project2" class="card"><img src="MLB2.png" alt="Project 2"></a>  
-    <a href="#project3" class="card"><img src="MLB3.png" alt="Project 3"></a>  
-    <a href="#project4" class="card"><img src="MLB4.png" alt="Project 4"></a>  
-    <a href="#project5" class="card"><img src="MLB5.png" alt="Project 5"></a>  
-    <a href="#project6" class="card"><img src="MLB6.png" alt="Project 6"></a> 
-    <a href="#project7" class="card"><img src="F1.png" alt="Project 7"></a> 
-  </div>  
+
+  <div class="projects">
+
+    <!-- PROJECT 1 -->
+    <div class="card project-card" tabindex="0">
+      <img src="MLB1.png" alt="Project 1">
+      <div class="project-overlay">
+        <h3>Resume Website</h3>
+        <p>Styled resume with navigation and design improvements.</p>
+        <div class="buttons">
+          <a href="https://tomclarence727-prog.github.io/TomsResume/" target="_blank">
+            <i class="fas fa-eye"></i> Live Demo
+          </a>
+          <a href="https://hastebin.com/share/qacisumiki.xml" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="card project-card" tabindex="0">
+      <img src="MLB2.png" alt="Project 2">
+      <div class="project-overlay">
+        <h3>HTML Lists</h3>
+        <p>Practice using ordered and unordered lists.</p>
+        <div class="buttons">
+          <a href="https://codepen.io/editor/Tom-Clarence-Endaya-the-bashful/pen/019d637c-29bd-7514-84e6-8a835eea57c0" target="_blank">
+            <i class="fas fa-eye"></i> Live Demo
+          </a>
+          <a href="https://hastebin.com/share/ugahevepes.xml" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="card project-card" tabindex="0">
+      <img src="MLB3.png" alt="Project 3">
+      <div class="project-overlay">
+        <h3>Forms Page</h3>
+        <p>Basic form layout using HTML and CSS.</p>
+        <div class="buttons">
+          <a href="https://codepen.io/editor/Tom-Clarence-Endaya-the-bashful/pen/019d637a-e1a7-7faa-b25d-84d2f6532d82" target="_blank">
+            <i class="fas fa-eye"></i> Live Demo
+          </a>
+          <a href="https://hastebin.com/share/iradecipaw.xml" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="card project-card" tabindex="0">
+      <img src="MLB4.png" alt="Project 4">
+      <div class="project-overlay">
+        <h3>Image Maps</h3>
+        <p>Clickable image areas using HTML image maps.</p>
+        <div class="buttons">
+          <a href="https://tomclarence727-prog.github.io/Dora-s-map/" target="_blank">
+            <i class="fas fa-eye"></i> Live Demo
+          </a>
+          <a href="https://hastebin.com/share/vebenibufi.xml" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 5 -->
+    <div class="card project-card" tabindex="0">
+      <img src="MLB5.png" alt="Project 5">
+      <div class="project-overlay">
+        <h3>Styled Resume</h3>
+        <p>Applied CSS styling to improve resume design.</p>
+        <div class="buttons">
+          <a href="https://tomclarence727-prog.github.io/Resumepinaganda/" target="_blank">
+            <i class="fas fa-eye"></i> Live Demo
+          </a>
+          <a href="https://hastebin.com/share/risiqeqira.xml" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 6 -->
+    <div class="card project-card" tabindex="0">
+      <img src="MLB6.png" alt="Project 6">
+      <div class="project-overlay">
+        <h3>Layout Design</h3>
+        <p>Using divs and semantic HTML for page layout.</p>
+        <div class="buttons">
+          <a href="https://codepen.io/editor/TOM-CLARENCE-ENDAYA/pen/019d636a-602d-750e-a766-f7fa5ce2d220" target="_blank">
+            <i class="fas fa-eye"></i> Live Demo
+          </a>
+          <a href="https://hastebin.com/share/usavaxevew.xml" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 7 -->
+    <div class="card project-card" tabindex="0">
+      <img src="F1.png" alt="Project 7">
+      <div class="project-overlay">
+        <h3>Responsive Flexbox</h3>
+        <p>Responsive layout built using Flexbox.</p>
+        <div class="buttons">
+          <a href="https://codepen.io/TOM-CLARENCE-ENDAYA/pen/LERBzae" target="_blank">
+            <i class="fas fa-eye"></i> Live Demo
+          </a>
+          <a href="https://hastebin.com/share/etexonevuy.xml" target="_blank">
+            <i class="fab fa-github"></i> Source Code
+          </a>
+        </div>
+      </div>
+    </div>
+
+ 
+
+<!-- FINAL TASK 2 -->
+<div class="card project-card" tabindex="0">
+  <img src="F2.png" alt="Final Task 2">
+  <div class="project-overlay">
+    <h3>Final Task 2</h3>
+    <p>Advanced responsive webpage design project.</p>
+    <div class="buttons">
+      <a href="https://codepen.io/Unkown-Human/pen/KwNMrvN" target="_blank">
+        <i class="fas fa-eye"></i> Live Demo
+      </a>
+      <a href="https://hastebin.com/share/hubixoquxe.xml" target="_blank">
+        <i class="fab fa-github"></i> Source Code
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL TASK 3 -->
+<div class="card project-card" tabindex="0">
+  <img src="F3.png" alt="Final Task 3">
+  <div class="project-overlay">
+    <h3>Final Task 3</h3>
+    <p>Interactive portfolio and layout enhancement.</p>
+    <div class="buttons">
+      <a href="https://codepen.io/Unkown-Human/pen/myOEQEo" target="_blank">
+        <i class="fas fa-eye"></i> Live Demo
+      </a>
+      <a href="https://hastebin.com/share/saloniwesi.xml" target="_blank">
+        <i class="fab fa-github"></i> Source Code
+      </a>
+    </div>
+  </div>
+</div>
+    
+    <!-- PROJECT 10 -->
+<div class="card project-card" tabindex="0">
+  <img src="W1.png" alt="Website 1">
+  <div class="project-overlay">
+    <h3>My Website 1</h3>
+    <p>Personal responsive website project.</p>
+    
+    <div class="buttons">
+      <a href="https://corimusngj-stack.github.io/MotoelitePH1/" target="_blank">
+        <i class="fas fa-eye"></i> Live Demo
+      </a>
+    </div>
+  </div>
 </div>
 
   <!-- EDUCATION -->  <div class="section" id="education">  
@@ -404,60 +654,6 @@ footer{
   <div class="modal-content">  
     <a href="#" class="close">&times;</a>  
     <h2>Project 1</h2>  
-    <img src="una.jpg" alt="Project 1 Screenshot">  
-    <p>Yung Resume namin ay mas pinaganda sa part na toh nagkaroon sya ng background color at nag karoon sya ng function yung mg page name amazing diba?hahaha.</p>  
-    <pre>&lt; Resume ni Tom HTML/CSS‎ <a hr/pre>
-
-  </div>  
-</div>  <div id="project2" class="modal">  
-  <div class="modal-content">  
-    <a href="#" class="close">&times;</a>  
-    <h2>Project 2</h2>  
-    <img src="pangalawa.jpg" alt="Project 2 Screenshot">  
-    <p>Dito naman tinuruan kami kung paano gumawa ng listahan sa coding haha medyo tricky to pero kung pag tutuonan mo ng pansin madali lang toh wag kalang papalito.</p>  
-    <pre>&lt;Unordered lists HTML/CSS code here --&gt;</pre>  
-  </div>  
-</div>  <div id="project3" class="modal">  
-  <div class="modal-content">  
-    <a href="#" class="close">&times;</a>  
-    <h2>Project 3</h2>  
-    <img src="pangatlo.jpg" alt="Project 3 Screenshot">  
-    <p>Built a small blog page demonstrating CSS grid and flexbox layouts.</p>  
-    <pre>&lt;HTML FORMS HTML/CSS code here --&gt;</pre>  
-  </div>  
-</div>  <div id="project4" class="modal">  
-  <div class="modal-content">  
-    <a href="#" class="close">&times;</a>  
-    <h2>Project 4</h2>  
-    <img src="pangapat.jpg" alt="Project 4 Screenshot">  
-    <p>Designed a registration form with validation styling using CSS only.</p>  
-    <pre>&lt;IMAGE MAPS HTML/CSS code here --&gt;</pre>  
-  </div>  
-</div>  <div id="project5" class="modal">  
-  <div class="modal-content">  
-    <a href="#" class="close">&times;</a>  
-    <h2>Project 5</h2>  
-    <img src="panglima.jpg" alt="Project 5 Screenshot">  
-    <p>Created a gallery page with hover animations and modal popups.</p>  
-    <pre>&lt;Applying Css to Resume HTML/CSS code here --&gt;</pre>  
-  </div>  
-</div>  <div id="project6" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close">&times;</a>
-    <h2>Project 6</h2>
-    <img src="panganim.webp" alt="Project 6 Screenshot">
-    <p>Developed a mini e-commerce product page with CSS card styling.</p>
-    <pre>&lt;HTML layout using divs and semantic elementsHTML/CSS code here HTML/CSS code here --&gt;</pre>
-  </div>
-</div>
-
-<div id="project7" class="modal">
-  <div class="modal-content">
-    <a href="#" class="close">&times;</a>
-    <h2>Project 7</h2>
-    <img src="pangpito.jpg" alt="Project 7 Screenshot">
-    <p>Developed a mini e-commerce product page with CSS card styling.</p>
-    <pre>&lt;Responsive layout using Flex HTML/CSS code here --&gt;</pre>
-  </div>
+   
 </div>  </div> <!-- END WRAPPER -->  </body>  
 </html> 
